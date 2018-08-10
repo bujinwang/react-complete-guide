@@ -19,10 +19,11 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'
     };
-    return (
-      <div className="App">
-        <h1>Hi, this is my first react!</h1>
-        <button style={style}>Switch</button>
+
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (<div>
         <Person
           changed={this.nameChanged}
           clickHandler={() => {
@@ -31,8 +32,15 @@ class App extends Component {
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}>My hobby this swimming
         </Person>
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My hobby this swimming</Person>
+        < Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My hobby this swimming</Person>
         <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>My hobby this swimming</Person>
+      </div>);
+    }
+    return (
+      <div className="App">
+        <h1>Hi, this is my first react!</h1>
+        <button style={style} onClick={this.togglePersonHandler}>Toggle persons</button>
+        {persons}
       </div>
     );
   }
@@ -46,7 +54,8 @@ class App extends Component {
         {name: 'Max', age: 28},
         {name: "Stephanie", age: 26}
       ],
-      otherState: "test"
+      otherState: "test",
+      showPersons: false
     });
     console.log('switch name clicked ' + p.name);
   }
@@ -63,6 +72,14 @@ class App extends Component {
       otherState: "test"
     });
     console.log('switch name clicked ' + p.name);
+  }
+
+  togglePersonHandler = () => {
+    const showperson = this.state.showPersons;
+    this.setState({
+      showPersons:
+        !showperson
+    });
   }
 }
 
